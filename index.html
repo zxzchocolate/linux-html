@@ -1,18 +1,51 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Linux HTML — Real Linux in your browser</title>
-<style>
-*{box-sizing:border-box}body{margin:0;background:#10131a;color:#edf2fa;font:14px system-ui,-apple-system,sans-serif}header{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid #303746;background:#171b25}header strong{font-size:16px}button,a.btn{background:#7da9ff;color:#101522;border:0;border-radius:6px;padding:10px 14px;font-weight:650;text-decoration:none;cursor:pointer}main{padding:16px;max-width:1400px;margin:auto}.notice{padding:12px 14px;border:1px solid #394255;border-radius:8px;background:#191e29;margin-bottom:12px;line-height:1.5}.notice b{color:#a9c5ff}iframe{width:100%;height:calc(100vh - 190px);min-height:430px;border:1px solid #343b4b;border-radius:9px;background:#090b10}footer{color:#9ba6ba;padding:12px 0;line-height:1.5}a{color:#a9c5ff}@media(max-width:600px){header{padding:0 10px}main{padding:9px}iframe{height:70vh;min-height:380px}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101318">
+  <title>Linux HTML</title>
+  <link rel="stylesheet" href="web/style.css">
+  <script src="vendor/v86/libv86.js" defer></script>
+  <script src="web/app.js" defer></script>
 </head>
 <body>
-<header><strong>🐧 Linux HTML <span style="font-weight:400;color:#9ba6ba">/ Real kernel mode</span></strong><a class="btn" href="https://alizafar780.github.io/WebLinux/" target="_blank" rel="noopener">Open Linux separately ↗</a></header>
-<main>
-<div class="notice"><b>This boots a real Linux kernel.</b> The virtual PC runs in your browser using the open-source v86 emulator (WebAssembly). This page embeds the WebLinux demo as the first working kernel prototype while we integrate the emulator and boot images into this repository.</div>
-<iframe src="https://alizafar780.github.io/WebLinux/" title="Real Linux virtual machine" allow="fullscreen; clipboard-read; clipboard-write" loading="eager"></iframe>
-<footer><b>Networking:</b> the guest can use a virtual Ethernet adapter and the demo's internet relay where available. It does not get direct control of your laptop's physical Wi-Fi adapter. GitHub Pages is static hosting, so this prototype requires no server of our own. If the embedded VM is blocked by browser policy, use “Open Linux separately”.<br>Emulator: <a href="https://github.com/copy/v86" target="_blank" rel="noopener">v86</a> · Prototype: <a href="https://github.com/alizafarbati/WebLinux" target="_blank" rel="noopener">WebLinux</a></footer>
-</main>
+  <header class="topbar">
+    <a class="brand" href="./">linux<span>-html</span></a>
+    <div class="top-meta"><span class="status-dot" id="status-dot"></span><span id="status">Runtime not started</span></div>
+  </header>
+  <main>
+    <section class="intro">
+      <div class="eyebrow">BROWSER VIRTUAL MACHINE</div>
+      <h1>Linux, running locally in your browser.</h1>
+      <p>This page is the project's own HTML and JavaScript front end. It is designed to boot a real Linux kernel inside an x86 virtual machine, not imitate a terminal.</p>
+    </section>
+    <section class="machine">
+      <div class="machine-head">
+        <div><strong>Virtual machine</strong><span class="subtle">x86 · serial console · virtual networking planned</span></div>
+        <div class="controls">
+          <button id="boot" class="primary">Boot Linux</button>
+          <button id="pause" disabled>Pause</button>
+          <button id="reset" disabled>Reset</button>
+        </div>
+      </div>
+      <div id="screen" class="screen" aria-label="Linux virtual machine screen">
+        <div class="screen-placeholder">
+          <div class="prompt-mark">_</div>
+          <strong>Waiting for the virtual machine</strong>
+          <p>Boot assets are loaded from this repository when they are added.</p>
+        </div>
+      </div>
+      <div class="console-head"><strong>Serial output</strong><button id="clear" class="small">Clear</button></div>
+      <pre id="serial" class="serial" aria-live="polite">Linux HTML runtime
+No kernel has been booted yet.</pre>
+    </section>
+    <section class="details">
+      <div><h2>What this is</h2><p>A browser-hosted machine intended to run a compiled Linux kernel and initramfs. The kernel source remains in this repository; HTML and JavaScript provide the controls and emulator integration.</p></div>
+      <div><h2>Networking</h2><p>The guest needs a virtual NIC and a compatible networking backend. A web page cannot directly take control of your computer's physical Wi-Fi adapter.</p></div>
+      <div><h2>Build status</h2><p id="build-status">Frontend created. Emulator, bootable kernel, and initramfs assets still need to be built and placed in the runtime directories.</p></div>
+    </section>
+  </main>
+  <footer>Linux HTML · source-first browser VM</footer>
 </body>
 </html>
